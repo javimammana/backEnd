@@ -4,17 +4,24 @@ class ProductManager {
 
     addProduct(elemento) {
 
-        const product = this.productos.find(prod => prod.code === elemento.code);
-        
-        if (product) {
-            console.log ("Producto existente");
+        const {title, description, price, thumbnail, code, stock} = elemento;
+
+        if (!title || !description || !price || !thumbnail || !code || !stock) {
+            console.log ("Datos incompletos");
         } else {
-            const newProduct = {
-                ...elemento,
-                id: this.productos.length + 1
+
+            const product = this.productos.find(prod => prod.code === elemento.code);
+            
+            if (product) {
+                console.log ("Producto existente");
+            } else {
+                const newProduct = {
+                    ...elemento,
+                    id: this.productos.length + 1
+                }
+                this.productos.push(newProduct);
+                return "Se agrega producto";
             }
-            this.productos.push(newProduct);
-            return "Se agrega producto";
         }
 
     }
@@ -62,4 +69,4 @@ listado.addProduct(
     new Product ("Producto prueba", "Este es un producto prueba", 200, "Sin imagen", "abc123", 25)
 );
 
-console.log(listado.getProductById(5));
+console.log(listado.getProductById(1));
