@@ -38,10 +38,6 @@ class ProductManager {
             return product;
         }
     }
-
-    // clearProduct() {
-    //     this.productos = [];
-    // }
 }
 
 class Product {
