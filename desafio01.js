@@ -10,7 +10,7 @@ class ProductManager {
             console.log ("Datos incompletos");
         } else {
 
-            const product = this.productos.find(prod => prod.code === elemento.code);
+            const product = this.productos.some(prod => prod.code === elemento.code);
             
             if (product) {
                 console.log ("Producto existente");
@@ -26,7 +26,7 @@ class ProductManager {
 
     }
 
-    getProduct() {
+    getProducts() {
         return this.productos;
     }
 
@@ -53,13 +53,13 @@ class Product {
 
 const listado = new ProductManager();
 
-console.log (listado.getProduct());
+console.log (listado.getProducts());
 
 listado.addProduct(
     new Product ("Producto prueba", "Este es un producto prueba", 200, "Sin imagen", "abc123", 25)
 );
 
-console.log (listado.getProduct());
+console.log (listado.getProducts());
 
 listado.addProduct(
     new Product ("Producto prueba", "Este es un producto prueba", 200, "Sin imagen", "abc123", 25)
