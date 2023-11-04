@@ -8,21 +8,8 @@ class ProductManager {
             this.productos = JSON.parse(productos);
         } catch {
             this.productos = [];
-
-            console.log (pro)
         }
     }
-    //productos = [];
-
-    // validate(elemento) {
-        
-    //     const {title, description, price, thumbnail, code, stock} = elemento;
-
-    //     if (!title || !description || !price || !thumbnail || !code || !stock) {
-    //         return false;
-    //     }
-    //     return true;
-    // }
 
     src (id) {
         const product = this.productos.find(prod => prod.id === id);
@@ -41,11 +28,21 @@ class ProductManager {
                 console.log (`Hubo un error al agregar producto. Error: ${error}`);
         }
     }
-    async addProduct(elemento) {
 
+    validate(elemento) {
+        
         const {title, description, price, thumbnail, code, stock} = elemento;
 
         if (!title || !description || !price || !thumbnail || !code || !stock) {
+            return false;
+        }
+        return true;
+    }
+    async addProduct(elemento) {
+
+        const validacion = this.validate(elemento);
+
+        if (!validacion) {
             console.log ("Datos incompletos");
         } else {
 
@@ -59,13 +56,14 @@ class ProductManager {
                         id: this.productos.length + 1
                     }
                     this.productos.push(newProduct);
+                    console.log("Producto creado");
 
                     const respuesta = await this.saveProduct(this.productos);
 
                     if (!respuesta) {
-                        console.log ("Producto agregado")
+                        console.log ("Producto agregado a la base")
                     } else {
-                        console.log("Hubo un error al crear producto");
+                        console.log("Hubo un error agregar el producto a la base");
                     }
             }
         }
@@ -73,6 +71,7 @@ class ProductManager {
 
 
     getProducts() {
+        console.log(this.productos);
         return this.productos;
     }
 
@@ -81,6 +80,7 @@ class ProductManager {
         if (!product) {
             return "Not found";
         } {
+            console.log (product);
             return product;
         }
     }
@@ -88,25 +88,51 @@ class ProductManager {
     async deleteProduct(id) {
 
         const product = this.src(id);
-        const index = this.productos.findIndex(product);
-        console.log (index);
+        
+        if (!product) {
+            console.log (`El producto id:${id} no existe`);
+        } {
+            this.productos.splice(this.productos.indexOf(product), 1);
+            console.log ("Se elimina producto");
+
+            const respuesta = await this.saveProduct(this.productos);
+
+            if (!respuesta) {
+                console.log ("Producto borrado de la Base")
+            } else {
+                console.log("Hubo un error al borrar el producto de la base");
+            }
+        }
+    }
+
+    async updateProduct (id, elemento) {
+
+        const product = this.src(id);
 
         if (!product) {
             console.log (`El producto id:${id} no existe`);
         } {
+            const validacion = this.validate(elemento);
 
-            console.log ("Se elimina producto");
-            console.log (this.productos);
-            //const index = this.productos.findIndex(product);
-        //console.log (index);
-        // try {
-        //     this.productos.splice(index, 1);
-        //     await fs.promises.writeFile (
-        //         this.list,
-        //         JSON.stringify(this.productos, null, "\t")
-        //     )} catch(error) {
-        //         console.log (`Error al guardar datos despues de eliminar producto. Error: ${error}`);
-        //     }
+            if (!validacion) {
+                console.log ("Datos incompleto");
+            } {
+                const newProduct = {
+                    ...elemento,
+                    id: id
+                }
+
+                this.productos.splice(this.productos.indexOf(product), 1, newProduct);
+                console.log ("Producto modificado");
+
+                const respuesta = await this.saveProduct(this.productos);
+
+                if (!respuesta) {
+                    console.log ("Producto modificado en la Base")
+                } else {
+                    console.log("Hubo un error al modificar el producto en la base");
+                }
+            }
         }
     }
 }
@@ -124,8 +150,6 @@ class Product {
 
 async function fetchDatos () {
     try {
-        //const response = await fetch (productos);
-        //const data = await response.json();
         const listado = new ProductManager ("./listado.json");
 
         listado.addProduct(
@@ -137,6 +161,10 @@ async function fetchDatos () {
             );
 
         listado.addProduct(
+            new Product ("Producto prueba3", "Este es un producto prueba", "Sin imagen", "ghi123", 25)
+            );
+
+        listado.addProduct(
             new Product ("Producto prueba3", "Este es un producto prueba", 200, "Sin imagen", "def123", 25)
             );
         
@@ -145,31 +173,20 @@ async function fetchDatos () {
             );
 
         listado.deleteProduct(2);
+
+        listado.updateProduct(3, 
+            new Product ("Producto modificado", "Este es un producto prueba", 200, "Sin imagen", "def456", 25)
+            );
+
+            console.log ("Todos los productos del array")
         listado.getProducts();
+
+        console.log ("Solo el producto buscado por ID")
+        listado.getProductById(3);
 
     } catch {
         console.log(`Hubo un error al utilizar fetch: ${error}`);
     }
 }
 
-
-fetchDatos ();
-//const listado = new ProductManager();
-
-// console.log (listado.getProducts());
-
-// listado.addProduct(
-//     new Product ("Producto prueba", "Este es un producto prueba", 200, "Sin imagen", "abc123", 25)
-// );
-
-// listado.addProduct(
-//     new Product ("Producto prueba", "Este es un producto prueba", "Sin imagen", "abc123", 25)
-// );
-
-// console.log (listado.getProducts());
-
-// listado.addProduct(
-//     new Product ("Producto prueba", "Este es un producto prueba", 200, "Sin imagen", "abc123", 25)
-// );
-// //console.log (listado.getProducts());
-// console.log(listado.getProductById(1));
+fetchDatos();
