@@ -46,20 +46,16 @@ class ProductManager {
                     console.log("Producto creado");
 
                     const respuesta = await this.saveProduct(this.productos);
-                    return !respuesta ? console.log ("Producto agregado a la base") : console.log("Hubo un error agregar el producto a la base");
+                    return !respuesta 
+                    ? console.log ("Producto agregado a la base") 
+                    : console.log("Hubo un error agregar el producto a la base");
                 } 
                 console.log ("Producto existente");
-
         }
         console.log ("Datos incompletos");
     }
 
     getProducts = () => console.log(this.productos);
-
-    getProductById(id) {
-        const product = this.src(id);
-        return !product ? console.log ("Not found"): console.log (product), product;
-    }
 
     async deleteProduct(id) {
 
@@ -70,10 +66,11 @@ class ProductManager {
             console.log ("Se elimina producto");
 
             const respuesta = await this.saveProduct(this.productos);
-            return !respuesta ? console.log ("Producto borrado de la Base") : console.log("Hubo un error al borrar el producto de la base");
+            return !respuesta
+            ? console.log ("Producto borrado de la Base")
+            : console.log("Hubo un error al borrar el producto de la base");
         }
         console.log (`El producto id:${id} no existe para ser eliminado`);
-
     }
 
     async updateProduct (id, elemento) {
@@ -98,14 +95,15 @@ class ProductManager {
                     console.log ("Producto modificado");
 
                     const respuesta = await this.saveProduct(this.productos);
-                    return !respuesta ? console.log ("Producto modificado en la Base"): console.log("Hubo un error al modificar el producto en la base");
+                    return !respuesta
+                    ? console.log ("Producto modificado en la Base")
+                    : console.log("Hubo un error al modificar el producto en la base");
                 }
                 console.log ("Datos incompleto");
             }
             console.log ("Producto existente");
         }
         console.log (`El producto id:${id} no existe para ser modificado`);
-
     }
 }
 
