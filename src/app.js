@@ -1,17 +1,21 @@
 import express from "express";
-import fs from "fs";
+import {ProductManager} from "./ProductManager.js";
 
 
 const app = express();
 const PORT = 8080;
 
 
-const productosJson = fs.readFileSync("./listado.json", "utf-8");
-const productos = JSON.parse (productosJson);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.get("/products", (req,res) => {
+const manager = new ProductManager("./src/listado.json");
 
-    const limit = Number(req.query.limit);
+app.get("/products", async (req,res) => {
+
+    const productos = await manager.getProducts();
+
+    const limit = await Number(req.query.limit);
     console.log(limit);
 
     if (limit) {
@@ -20,17 +24,19 @@ app.get("/products", (req,res) => {
             let elemento = productos.find ((prod) => prod.id === i);
             productosFiltrados.push(elemento);
         }
-        res.json (productosFiltrados);
-    }
-    res.json (productos);
+        res.send (productosFiltrados);
+        return;
+    } 
+    res.send (productos);
 })
 
-app.get("/products/:id", (req, res) => {
+app.get("/products/:id", async (req, res) => {
     console.log (req.params);
     const { id } = req.params;
-    const producto = productos.find ((prod) => prod.id === Number(id));
 
-    (producto) ? res.json(producto) : res.json(`El producto ID: ${id}, no existe`);
+    const producto = await manager.getProductById(Number(id));
+
+    res.send (producto);
 })
 
 
