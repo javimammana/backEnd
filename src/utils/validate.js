@@ -4,9 +4,7 @@ function validateProd (req, res, next) {
     const {title, description, price, code, stock, category} = req.body;
     
     if (!title) {
-        return res.json ({
-            error: "El Nombre del producto es necesario"
-        })
+        return {error: "El Nombre del producto es necesario"}
     }
 
     if (!description) {

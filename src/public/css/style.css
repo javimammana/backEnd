@@ -1,6 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Didact+Gothic&family=Tangerine&display=swap");
 *{
     padding: 0;
     margin: 0;
+    font-family: "Didact Gothic", sans-serif;
 }
 .contenedor {
     width: 100%;
@@ -18,5 +20,42 @@
 
 .card {
     width: 200px;
-    margin: 15px;
+    margin: 10px;
+    border: 1px solid #626262;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.card h4 {
+    font-size: 23px;
+    margin: 5px 0px;
+}
+
+.cardInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    margin: 10px 0px;
+}
+
+.cardInfo p {
+    font-size: 15px;
+}
+
+.cardInfo h5 {
+    font-size: 23px;
+}
+
+.img {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.btn {
+    width: 100%;
+    background-color: #3c3c3c;
+    color: white;
+    border: 0px;
+    padding: 5px;
+    font-size: 15px;
 }

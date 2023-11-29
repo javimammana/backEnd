@@ -1,21 +1,29 @@
 <div>
-    <h1>Real time!!</h1>
+    <div class="listProducts">
+        <h1>Agregar productos</h1>
+    </div>
+    <div class="listProducts">
+        <form id="addProductForm" class="form">
+            <input class="formItem" type="text" placeholder="Nombre de producto" name="title" id="title" required>
+            <input class="formItem" type="text" placeholder="Categoria de producto" name="category" id="category" required>
+            <input class="formItem" type="text" placeholder="Descripcion del producto" name="description" id="description" required>
+            <input class="formItem" type="number" placeholder="Precio" name="price" id="price" required>
+            <input class="formItem" type="text" placeholder="Codigo de producto" name="code" id="code" required>
+            <input class="formItem" type="number" placeholder="Stock de producto" name="stock" id="stock" required>
 
-    <div>
-        <form action="/realTimeProducts" method="post">
-            <input type="text" placeholder="Nombre de producto" name="title" id="title">
-            <input type="text" placeholder="Categoria de producto" name="category">
-            <input type="text" placeholder="Descripcion del producto" name="description">
-            <input type="number" placeholder="Precio" name="price">
-            <input type="text" placeholder="Codigo de producto" name="code">
-            <input type="number" placeholder="Stock de producto" name="stock">
-            <input type="submit" value="Send" id="button">
+            <button class="formBtn" type="submit" id="button">Cargar</button>
         </form>
     </div>
 
-<div>
+    <div class="listProducts">
+        <h1>Productos</h1>
+    </div>
+
+<div class="listProducts" id="listProducts">
 
 </div>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/main.js"></script>

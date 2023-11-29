@@ -1,5 +1,5 @@
-// const fs = require("fs");
 import fs from "fs"
+
 class ProductManager {
     constructor(path) {
         this.path = path;
@@ -24,7 +24,6 @@ class ProductManager {
             console.log (`Hubo un error al escribir BASE. Error: ${error}`);
         }
     }
-
     async addProduct(elemento) {
 
         if (elemento) {
@@ -43,8 +42,8 @@ class ProductManager {
                     ? {error: "Producto agregado a la base"} 
                     : {error: "Hubo un error agregar el producto a la base"};
                 } 
-                console.log ("Producto OK");
-                return {error:`El codigo ${elemento.code} del producto ya existe`};
+                console.log ("Producto Completo, pero ya existente");
+                return {error:`El codigo del producto ya existe`};
         }
         console.log ("Datos incompletos");
         return;
@@ -115,7 +114,7 @@ class Product {
         this.title  = title;
         this.description = description;
         this.price = price;
-        this.thumbnail = [];
+        this.thumbnail = ["sinImagen.png"];
         this.code = code;
         this.stock = stock;
         this.status = true;

@@ -4,13 +4,15 @@
     <div class="contenedorCard">
         {{#each productos}}
         <div class="card">
+            <div>
+                <img class="img" src="img/{{ this.thumbnail }}">
             <h4>{{ this.title }}</h4>
             <p>{{ this.description }}</p>
-            <div class="">
-                <h5>Stock: {{ this.stock }}</h5>
-                <h5>${{ this.price }}</h5>
+            <div class="cardInfo">
+                <p>Stock: {{ this.stock }}</p>
+                <h5>${{ this.price }} .-</h5>
             </div>
-            <button>Comprar</button>
+            <button class="btn">Comprar</button>
         </div>
         {{/each}}
 
