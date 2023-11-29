@@ -1,0 +1,22 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+.contenedor {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.contenedorCard {
+    max-width: 1000px;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+    justify-content: space-between;
+}
+
+.card {
+    width: 200px;
+    margin: 15px;
+}

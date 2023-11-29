@@ -1,0 +1,21 @@
+<div class="contenedor">
+    {{#if productos}}
+    <h1>Productos</h1>
+    <div class="contenedorCard">
+        {{#each productos}}
+        <div class="card">
+            <h4>{{ this.title }}</h4>
+            <p>{{ this.description }}</p>
+            <div class="">
+                <h5>Stock: {{ this.stock }}</h5>
+                <h5>${{ this.price }}</h5>
+            </div>
+            <button>Comprar</button>
+        </div>
+        {{/each}}
+
+        {{else}}
+        <h2>No hay productos</h2>
+        {{/if}}
+    </div>
+</div>

@@ -1,44 +1,43 @@
 import express from "express";
-import {ProductManager} from "./ProductManager.js";
+import handlebars from "express-handlebars";
+import __dirname from "./utils.js";
+import { Server } from "socket.io";
+
+import productRouter from "./routes/product.routes.js";
+import cartRouter from "./routes/cart.routes.js";
+import viewRouter from "./routes/view.routes.js";
 
 
 const app = express();
 const PORT = 8080;
 
+const httpServer = app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
+
+const socketServer = new Server(httpServer);
+
+//Handlebars
+app.engine ("hbs", handlebars.engine({
+    extname: "hbs",
+    defaultLayout: "main"
+}));
+app.set("view engine", "hbs");
+app.set("views", `${__dirname}/views`);
+app.use(express.static(`${__dirname}/public`));
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const manager = new ProductManager("./src/listado.json");
+//Router
+app.use("/api/products", productRouter);
+app.use("/api/carts", cartRouter);
+app.use("/", viewRouter);
 
-app.get("/products", async (req,res) => {
+//socket comunication
 
-    const productos = await manager.getProducts();
 
-    const limit = await Number(req.query.limit);
-    console.log(limit);
-
-    if (limit) {
-        const productosFiltrados = [];
-        for (let i = 1; i <= limit; i++) {
-            let elemento = productos.find ((prod) => prod.id === i);
-            productosFiltrados.push(elemento);
-        }
-        res.send (productosFiltrados);
-        return;
-    } 
-    res.send (productos);
-})
-
-app.get("/products/:id", async (req, res) => {
-    console.log (req.params);
-    const { id } = req.params;
-
-    const producto = await manager.getProductById(Number(id));
-
-    res.send (producto);
+socketServer.on("connection", (socketClient) => {
+    console.log ("Nuevo cliente conectado");
 })
 
 
-
-app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
