@@ -5,11 +5,18 @@
     font-family: "Didact Gothic", sans-serif;
 }
 
+.sticky {
+    position: sticky;
+    top: 0px;
+    background-color: #fff;
+    padding-bottom: 15px;
+}
+
 .listProducts {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 30px;
+    margin-top: 10px;
 }
 
 .card {

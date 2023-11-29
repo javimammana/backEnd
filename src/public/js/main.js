@@ -8,7 +8,7 @@ const deleteItem  = (id) => {
 
     Toastify({
         text: "Producto eliminado",
-        duration: 2000,
+        duration: 3000,
         newWindow: true,
         close: true,
         gravity: "top", // `top` or `bottom`

@@ -24,7 +24,19 @@ class ProductManager {
             console.log (`Hubo un error al escribir BASE. Error: ${error}`);
         }
     }
+
+    validate (elemento) {
+        const {title, description, price, thumbnail, code, stock} = elemento;
+        return (!title || !description || !price || !thumbnail || !code || !stock) ? false : true;
+    }
     async addProduct(elemento) {
+
+        const validacion = this.validate(elemento)
+        console.log (`esta es la validacion de crear un elemento ${validacion}`); 
+
+        if (!validacion) {
+            return {error: "Todos los campos deben estar completos, para cargar el producto"};
+        }
 
         if (elemento) {
             const product = this.productos.some(prod => prod.code === elemento.code);
