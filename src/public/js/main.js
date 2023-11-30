@@ -34,10 +34,10 @@ button.addEventListener("click", (e) => {
 
     const nvoProducto ={
         title: title.value,
-        category: category.value,
+        category: category.value.toUpperCase(),
         description: description.value,
         price: Number(price.value),
-        code: code.value,
+        code: code.value.toUpperCase(),
         stock: Number(stock.value)
     }
     socketClient.emit("objetForm", nvoProducto);
