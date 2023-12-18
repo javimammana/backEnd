@@ -1,28 +1,27 @@
 import { Router } from "express";
+import productsDao from "../daos/dbManager/products.dao.js";
 
-import { ProductManager } from "../manager/ProductManager.js";
-
+// import { ProductManager } from "../manager/ProductManager.js";
 
 const router = Router();
-const manager = new ProductManager("./src/data/productos.json");
-const productos = manager.getProducts();
+// const manager = new ProductManager("./src/data/productos.json");
 
-router.get ("/", (req, res) => {
 
+router.get("/", async (req, res) => {
+    const productos = await productsDao.getAllProducts();
+    console.log(productos)
     res.render("home", {
         title: "Productos",
         fileCss: "style.css",
-        productos
-    })
-})
+        productos,
+    });
+});
 
-router.get ("/realTimeProducts", (req, res) => {
-    res.render ("realTimeProducts", {
+router.get("/realTimeProducts", (req, res) => {
+    res.render("realTimeProducts", {
         title: "Cargar Productos",
-        fileCss: "style2.css"
-    })
-})
-
-
+        fileCss: "style2.css",
+    });
+});
 
 export default router;

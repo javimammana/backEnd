@@ -2,63 +2,112 @@ import express from "express";
 import handlebars from "express-handlebars";
 import __dirname from "./utils.js";
 import { Server } from "socket.io";
-import { ProductManager, Product } from "./manager/ProductManager.js";
+import Handlebars from "handlebars";
+import { allowInsecurePrototypeAccess } from "@handlebars/allow-prototype-access";
+// import { ProductManager, Product } from "./manager/ProductManager.js";
+import mongoose from "mongoose";
 
+import chatDao from "./daos/dbManager/chat.dao.js";
+import productsDao from "./daos/dbManager/products.dao.js";
 import productRouter from "./routes/product.routes.js";
 import cartRouter from "./routes/cart.routes.js";
 import viewRouter from "./routes/view.routes.js";
-import { validateProd } from "./utils/validate.js";
+import chatRouter from "./routes/chat.routes.js";
 
 
 const app = express();
 const PORT = 8080;
 
-const httpServer = app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
+const httpServer = app.listen(PORT, () =>
+  console.log(`Server listening on port ${PORT}`)
+);
 
 const io = new Server(httpServer);
 
+// Mongoose connection
+mongoose.connect(
+  `mongodb://localhost:27017`
+  )
+  .then(() => {
+  console.log("DB Connected");
+  })
+  .catch((err) => {
+  console.log("Hubo un error");
+  console.log(err);
+  });
+
 //Handlebars
-app.engine ("hbs", handlebars.engine({
-    extname: "hbs",
-    defaultLayout: "main"
-}));
+
+app.engine(
+  "hbs",
+  handlebars.engine({
+    extname: ".hbs",
+    defaultLayout: "main",
+    handlebars: allowInsecurePrototypeAccess(Handlebars),
+  })
+);
+
+
 app.set("view engine", "hbs");
 app.set("views", `${__dirname}/views`);
-app.use(express.static(`${__dirname}/public`));
 
+app.use(express.static(`${__dirname}/public`));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //Router
+app.use("/api/messages", chatRouter)
 app.use("/api/products", productRouter);
 app.use("/api/carts", cartRouter);
 app.use("/", viewRouter);
 
-const manager = new ProductManager("./src/data/productos.json")
+// const manager = new ProductManager("./src/data/productos.json");
 
 //socket comunication
 
-io.on("connection", (socketClient) => {
-    console.log ("Nuevo cliente conectado");
+//socket productos en tiempos real
+io.on("connection", async (socketClient) => {
+  console.log("Nuevo cliente conectado");
 
-    socketClient.on ("objetForm", async (data) => {
-        // console.log (data);
-        const product = new Product(data.title, data.description, data.price, data.code, data.stock, data.category);
-        // console.log (product);
-        const nvoProducto = await manager.addProduct(product);
-        console.log(nvoProducto.error);
-        io.emit ("listProduct", manager.getProducts());
-        socketClient.emit("resultado", nvoProducto.error)
-    })
+  socketClient.on("objetForm", async (data) => {
 
-    socketClient.emit("listProduct", manager.getProducts());
+    const nvoProducto = await productsDao.createProduct(data);
+    console.log(nvoProducto); //Como puedo recuperar el mesnaje del res.json?
+    io.emit("listProduct", await productsDao.getAllProducts());
+    socketClient.emit("resultado","Producto agregado"); //Aplicar la respuesta para mostrar en pantalla.-
+  });
 
-    socketClient.on ("deleteOrden", (data) => {
-        console.log(data);
-        manager.deleteProduct(data);
-        io.emit ("listProduct", manager.getProducts());
-    })
-})
+  socketClient.emit("listProduct", await productsDao.getAllProducts());
+
+  socketClient.on("deleteOrden", async(data) => {
+    console.log(data);
+    // manager.deleteProduct(data);
+    await productsDao.deleteProduct(data);
+    io.emit("listProduct", await productsDao.getAllProducts());
+  });
+});
 
 
+//socket CHAT
+
+io.on("connection", async (socketClient) => {
+  const messages = await chatDao.getAllMessages();
+  console.log("Nuevo usuario conectado");
+
+  socketClient.on("message", async (data) => {
+    console.log(data);
+    await chatDao.sendMessage(data);
+    const messages = await chatDao.getAllMessages();
+    io.emit("messages", messages);
+  });
+
+  socketClient.on("inicio", async (data) => {
+    const messages = await chatDao.getAllMessages();
+    io.emit("messages", messages);
+    socketClient.broadcast.emit("connected", data);
+  });
+
+  
+  socketClient.emit("messages", messages);
+});

@@ -1,10 +1,12 @@
+
 const socketClient = io();
 
 const button = document.querySelector("#button");
 
-const deleteItem  = (id) => {
-    // console.log(id);
-    socketClient.emit ("deleteOrden", id);
+////////////Vistas en timepos real/////////////
+const deleteItem = (id) => {
+    console.log(id);
+    socketClient.emit("deleteOrden", id);
 
     Toastify({
         text: "Producto eliminado",
@@ -16,9 +18,9 @@ const deleteItem  = (id) => {
         style: {
             background: "linear-gradient(to right, #353434, #000)",
             color: "#ebce0f",
-        }
-    }).showToast();;
-}
+        },
+    }).showToast();
+};
 
 button.addEventListener("click", (e) => {
     e.preventDefault();
@@ -32,20 +34,20 @@ button.addEventListener("click", (e) => {
     const code = document.querySelector("#code");
     const stock = document.querySelector("#stock");
 
-    const nvoProducto ={
+    const nvoProducto = {
         title: title.value,
         category: category.value.toUpperCase(),
         description: description.value,
         price: Number(price.value),
         code: code.value.toUpperCase(),
-        stock: Number(stock.value)
-    }
+        stock: Number(stock.value),
+    };
     socketClient.emit("objetForm", nvoProducto);
 
     form.reset();
-})
+});
 
-socketClient.on ("resultado", (data) => {
+socketClient.on("resultado", (data) => {
     console.log(data);
     Toastify({
         text: data,
@@ -57,12 +59,11 @@ socketClient.on ("resultado", (data) => {
         style: {
             background: "linear-gradient(to right, #353434, #000)",
             color: "#ebce0f",
-        }
-    }).showToast();;
-})
+        },
+    }).showToast();
+});
 
-socketClient.on ("listProduct", (data) => {
-    // console.log(data);
+socketClient.on("listProduct", (data) => {
     const log = document.querySelector("#listProducts");
 
     let listProducts = "";
@@ -88,10 +89,59 @@ socketClient.on ("listProduct", (data) => {
                                 </div>
                             </div>
                             <div class="delete">
-                                <button class="btn" onClick="deleteItem(${element.id})">Borrar</button>
+                                <button class="btn" onClick="deleteItem(${element._id}})">Borrar</button>
                             </div>
-                        </div>`
+                        </div>`;
     });
 
     log.innerHTML = listProducts;
-})
+});
+
+//////////////CHAT/////////////////////
+
+// const chatbox = document.querySelector("#chatbox");
+// let user;
+
+// Swal.fire({
+//     title: "Bienvenido",
+//     text: "Ingrese su nombre para continuar",
+//     input: "text",
+//     inputValidator: (value) => {
+//         return !value && "Necesitás identificarte";
+//     },
+//     allowOutsideClick: false,
+// }).then((value) => {
+//     user = value.value;
+//     socketClient.emit("inicio", user);
+// });
+
+// chatbox.addEventListener("keyup", (e) => {
+//     if (e.key === "Enter") {
+//         socketClient.emit("message", {
+//             user,
+//             msg: e.target.value,
+//         });
+//         chatbox.value = "";
+//     }
+// });
+
+// socketClient.on("connected", (data) => {
+//     if (user !== undefined) {
+//         Swal.fire({
+//             text: `Nuevo usuario conectado: ${data}`,
+//             toast: true,
+//             position: "top-right",
+//         });
+//     }
+// });
+
+// socketClient.on("messages", (data) => {
+//     const log = document.querySelector("#messages");
+//     let messages = "";
+
+//     data.forEach((message) => {
+//         messages += `<strong>${message.user}</strong>: ${message.msg} <br />`;
+//     });
+
+//     log.innerHTML = messages;
+// });
