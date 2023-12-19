@@ -2,7 +2,7 @@
 // import { ProductManager } from "../manager/ProductManager.js";
 import { Router } from "express";
 import cartsDao from "../daos/dbManager/carts.dao.js";
-// import productsDao from "../daos/dbManager/products.dao.js";
+import productsDao from "../daos/dbManager/products.dao.js";
 
 const router = Router();
 
@@ -39,31 +39,35 @@ router.get ("/:id", async (req, res) => {
 
 //Agregar producto a Carrito, bajo analisis aun.-
 
-// router.put ("/:cid/product/:pid", async (req, res) => {
-//     try{
-//         const { cid } = req.params;
-//         const { pid } = req.params;
-//         const cart = await cartsDao.getCartById(cid);
-//         console.log (cart);
-//         const prod = await productsDao.getProductById(pid);
-//         const prodId = prod._id;
-//         console.log(prodId);
+router.put ("/:cid/product/:pid", async (req, res) => {
+    try{
+        const { cid } = req.params;
+        const { pid } = req.params;
+        const cart = await cartsDao.getCartById(cid);
+        console.log(cart);
+        const prodSRC = await productsDao.getProductById(pid);
+        const prodId = prodSRC._id;
+        console.log(cart.products)
 
-//         cartsDao.addItemToCart(cid, prodId)
+        cart.products.push(prodId);
+        await cartsDao.upDateCart(cid, cart);
 
-//         res.json({
-//             message: "producto agregado a carrito"
-//         })
+        // const exist = await cartsDao.srcProduct(pid);
 
-//     } catch (e) {
-//         console.log (e);
-//         res.json({
-//             message: "Error al agregar producto al carrito",
-//             e,
-//         })
 
-//     }
-// })
+        res.json({
+            message: "producto agregado a carrito"
+        })
+
+    } catch (e) {
+        console.log (e);
+        res.json({
+            message: "Error al agregar producto al carrito",
+            e,
+        })
+
+    }
+})
 
 router.post ("/", async (req, res) => {
     try {

@@ -66,9 +66,10 @@ app.use("/", viewRouter);
 
 //socket comunication
 
-//socket productos en tiempos real
 io.on("connection", async (socketClient) => {
   console.log("Nuevo cliente conectado");
+
+  //socket productos en tiempos real
 
   socketClient.on("objetForm", async (data) => {
 
@@ -86,12 +87,9 @@ io.on("connection", async (socketClient) => {
     await productsDao.deleteProduct(data);
     io.emit("listProduct", await productsDao.getAllProducts());
   });
-});
 
+  //socket CHAT
 
-//socket CHAT
-
-io.on("connection", async (socketClient) => {
   const messages = await chatDao.getAllMessages();
   console.log("Nuevo usuario conectado");
 
@@ -108,6 +106,30 @@ io.on("connection", async (socketClient) => {
     socketClient.broadcast.emit("connected", data);
   });
 
-  
   socketClient.emit("messages", messages);
+
 });
+
+
+//socket CHAT
+
+// io.on("connection", async (socketClient) => {
+//   const messages = await chatDao.getAllMessages();
+//   console.log("Nuevo usuario conectado");
+
+//   socketClient.on("message", async (data) => {
+//     console.log(data);
+//     await chatDao.sendMessage(data);
+//     const messages = await chatDao.getAllMessages();
+//     io.emit("messages", messages);
+//   });
+
+//   socketClient.on("inicio", async (data) => {
+//     const messages = await chatDao.getAllMessages();
+//     io.emit("messages", messages);
+//     socketClient.broadcast.emit("connected", data);
+//   });
+
+  
+//   socketClient.emit("messages", messages);
+// });

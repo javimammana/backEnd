@@ -14,11 +14,14 @@ class CartDao {
         return await cartModel.create(cart);
     }
 
+    async upDateCart (cid, cart) {
+        return await cartModel.findByIdAndUpdate(cid, cart);
+    }
+
     async deleteCart (id) {
         return await cartModel.findByIdAndDelete(id);
     }
 
 }
-
 
 export default new CartDao();
