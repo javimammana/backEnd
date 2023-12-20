@@ -9,7 +9,7 @@ const router = Router();
 
 router.get("/", async (req, res) => {
     const productos = await productsDao.getAllProducts();
-    console.log(productos)
+    // console.log(productos)
     res.render("home", {
         title: "Productos",
         fileCss: "style.css",

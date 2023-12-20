@@ -6,7 +6,7 @@ import productsDao from "../daos/dbManager/products.dao.js";
 
 const router = Router();
 
-router.get ("/", async (req, res) => {
+router.get("/", async (req, res) => {
     try {
         const carts = await cartsDao.getAllCart();
         console.log(carts);
@@ -18,9 +18,9 @@ router.get ("/", async (req, res) => {
             e,
         });
     }
-})
+});
 
-router.get ("/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
     try {
         const { id } = req.params;
 
@@ -34,53 +34,65 @@ router.get ("/:id", async (req, res) => {
             e,
         });
     }
-})
+});
 
-
-//Agregar producto a Carrito, bajo analisis aun.-
-
-router.put ("/:cid/product/:pid", async (req, res) => {
-    try{
+router.put("/:cid/product/:pid", async (req, res) => {
+    try {
         const { cid } = req.params;
         const { pid } = req.params;
         const cart = await cartsDao.getCartById(cid);
-        console.log(cart);
-        const prodSRC = await productsDao.getProductById(pid);
-        const prodId = prodSRC._id;
-        console.log(cart.products)
 
-        cart.products.push(prodId);
+        const prodSRC = await productsDao.getProductById(pid);
+
+        const exist = cart.products.find(
+            (prod) => prod._id.toString() === prodSRC._id.toString()
+        );
+
+        if (!exist) {
+            cart.products.push(prodSRC._id);
+            await cartsDao.upDateCart(cid, cart);
+            console.log("No Existe")
+            res.json({
+                message: "producto agregado a carrito",
+            });
+        }
+
+        console.log("Existe")
+        
+        const addQuantity = {
+            _id: exist._id,
+            quantity: exist.quantity + 1
+        }
+
+        cart.products.splice(cart.products.indexOf(exist),1,addQuantity)
+
         await cartsDao.upDateCart(cid, cart);
 
-        // const exist = await cartsDao.srcProduct(pid);
-
-
         res.json({
-            message: "producto agregado a carrito"
-        })
+            message: "producto incrementado en carrito",
+        });
 
     } catch (e) {
-        console.log (e);
+        console.log(e);
         res.json({
             message: "Error al agregar producto al carrito",
             e,
-        })
-
+        });
     }
-})
+});
 
-router.post ("/", async (req, res) => {
+router.post("/", async (req, res) => {
     try {
         const cart = await cartsDao.addCart();
         res.json(cart);
     } catch (e) {
         console.log(e);
-        res.json ({
+        res.json({
             message: "Error al crear carrito",
             e,
-        })
+        });
     }
-})
+});
 
 router.delete("/:id", async (req, res) => {
     try {
@@ -98,7 +110,6 @@ router.delete("/:id", async (req, res) => {
         });
     }
 });
-
 
 //------FILE SYSTEM-------//
 
