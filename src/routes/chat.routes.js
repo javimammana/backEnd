@@ -7,7 +7,7 @@ const router = Router();
 router.get ("/", async (req, res) => {
     try {
         const chats = await chatDao.getAllMessages();
-        console.log(chats);
+        // console.log(chats);
         res.render("chat", {
             title: "CHAT",
             fileCss: "chatStyle.css",

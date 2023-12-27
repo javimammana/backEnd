@@ -1,0 +1,165 @@
+[{
+  "_id": {
+    "$oid": "658c3fa29e2536cc1929071b"
+  },
+  "user": "Tienda",
+  "msg": "Hola franco! En que podemos ayudarte?",
+  "created": {
+    "$date": "2023-12-27T15:15:46.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "658c3fb49e2536cc1929071e"
+  },
+  "user": "Franco",
+  "msg": "Hola!",
+  "created": {
+    "$date": "2023-12-27T15:16:04.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "658c3fb89e2536cc19290721"
+  },
+  "user": "Franco",
+  "msg": "Buenas tardes!!",
+  "created": {
+    "$date": "2023-12-27T15:16:08.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "658c3fce9e2536cc19290724"
+  },
+  "user": "Franco",
+  "msg": "Queria saber si tienen disponibilidad de un producto?",
+  "created": {
+    "$date": "2023-12-27T15:16:30.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "658c3fe69e2536cc19290727"
+  },
+  "user": "Tienda",
+  "msg": "Bien Franco! de que producto se trata?",
+  "created": {
+    "$date": "2023-12-27T15:16:54.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "658c3ff69e2536cc1929072a"
+  },
+  "user": "Tienda",
+  "msg": "los viste en nuestra tienda online?",
+  "created": {
+    "$date": "2023-12-27T15:17:10.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "658c3ffb9e2536cc1929072d"
+  },
+  "user": "Franco",
+  "msg": "si si",
+  "created": {
+    "$date": "2023-12-27T15:17:15.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "658c400d9e2536cc19290730"
+  },
+  "user": "Franco",
+  "msg": "un teclado y mouse",
+  "created": {
+    "$date": "2023-12-27T15:17:33.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "658c40199e2536cc19290733"
+  },
+  "user": "Franco",
+  "msg": "si bien lo tienen en la web",
+  "created": {
+    "$date": "2023-12-27T15:17:45.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "658c402a9e2536cc19290736"
+  },
+  "user": "Franco",
+  "msg": "queria saber si lo tienen disponible en blanco",
+  "created": {
+    "$date": "2023-12-27T15:18:02.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "658c403d9e2536cc19290739"
+  },
+  "user": "Tienda",
+  "msg": "por el momento no contamos con ese producto en blanco",
+  "created": {
+    "$date": "2023-12-27T15:18:21.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "658c406f9e2536cc1929073c"
+  },
+  "user": "Tienda",
+  "msg": "pero revisa nuestra tienda semanalmente, en cuanto ingrese el producto lo pondremos disponible en la web",
+  "created": {
+    "$date": "2023-12-27T15:19:11.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "658c407d9e2536cc1929073f"
+  },
+  "user": "Tienda",
+  "msg": "actualizamos productos todos los jueves!",
+  "created": {
+    "$date": "2023-12-27T15:19:25.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "658c40899e2536cc19290742"
+  },
+  "user": "Franco",
+  "msg": "perfecto!",
+  "created": {
+    "$date": "2023-12-27T15:19:37.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "658c408c9e2536cc19290745"
+  },
+  "user": "Franco",
+  "msg": "Muchas gracias!!!",
+  "created": {
+    "$date": "2023-12-27T15:19:40.000Z"
+  },
+  "__v": 0
+}]

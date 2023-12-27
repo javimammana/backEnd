@@ -5,6 +5,12 @@ class ProductDao {
     return await productModel.find();
   }
 
+  async getProductPaginate (limit, page, query, sort) {
+    const filtro = query ? {category: query} : {};
+    const orden = sort ? {price: Number(sort)} : {} ;
+    return await productModel.paginate(filtro, {limit: limit || 10, page: page || 1 , sort: orden} )
+  }
+
   async getProductById(id) {
     return await productModel.findById(id);
   }

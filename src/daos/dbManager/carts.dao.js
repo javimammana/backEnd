@@ -7,7 +7,7 @@ class CartDao {
     }
 
     async getCartById(id) {
-        return await cartModel.findById(id);
+        return await cartModel.findById(id).populate("products.product");
     }
 
     async addCart(cart) {

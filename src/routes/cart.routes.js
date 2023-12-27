@@ -24,9 +24,15 @@ router.get("/:id", async (req, res) => {
     try {
         const { id } = req.params;
 
-        const carts = await cartsDao.getCartById(id);
-        console.log(carts);
-        res.json(carts);
+        const cart = await cartsDao.getCartById(id);
+        console.log("Buscado ok");
+        // res.json(cart);
+
+        res.render("cart", {
+            title: "Carrito",
+            fileCss: "cardStyle.css",
+            cart,
+        });
     } catch (e) {
         console.log(e);
         res.json({
@@ -36,7 +42,20 @@ router.get("/:id", async (req, res) => {
     }
 });
 
-router.put("/:cid/product/:pid", async (req, res) => {
+// router.post("/", async (req, res) => {
+//     try {
+//         const cart = await cartsDao.addCart();
+//         res.json(cart);
+//     } catch (e) {
+//         console.log(e);
+//         res.json({
+//             message: "Error al crear carrito",
+//             e,
+//         });
+//     }
+// });
+
+router.post("/:cid/product/:pid", async (req, res) => {
     try {
         const { cid } = req.params;
         const { pid } = req.params;
@@ -45,33 +64,38 @@ router.put("/:cid/product/:pid", async (req, res) => {
         const prodSRC = await productsDao.getProductById(pid);
 
         const exist = cart.products.find(
-            (prod) => prod._id.toString() === prodSRC._id.toString()
+            (prod) => prod.product._id.toString() === prodSRC._id.toString()
         );
 
         if (!exist) {
-            cart.products.push(prodSRC._id);
+            console.log("No Existe");
+            cart.products.push({ product: prodSRC._id, quantity: 1 }),
+                console.log(cart.products);
             await cartsDao.upDateCart(cid, cart);
-            console.log("No Existe")
+            console.log("agregado");
             res.json({
                 message: "producto agregado a carrito",
             });
+        } else if (exist.quantity < prodSRC.stock) {
+            const addQuantity = {
+                product: exist.product,
+                quantity: exist.quantity + 1,
+            };
+
+            cart.products.splice(cart.products.indexOf(exist), 1, addQuantity);
+
+            await cartsDao.upDateCart(cid, cart);
+            console.log("incrementado");
+
+            res.json({
+                message: "producto incrementado en carrito",
+            });
+        } else {
+            console.log("maximo de stock");
+            res.json({
+                message: `Maximo de productos ${prodSRC.stock}`,
+            });
         }
-
-        console.log("Existe")
-        
-        const addQuantity = {
-            _id: exist._id,
-            quantity: exist.quantity + 1
-        }
-
-        cart.products.splice(cart.products.indexOf(exist),1,addQuantity)
-
-        await cartsDao.upDateCart(cid, cart);
-
-        res.json({
-            message: "producto incrementado en carrito",
-        });
-
     } catch (e) {
         console.log(e);
         res.json({
@@ -81,27 +105,148 @@ router.put("/:cid/product/:pid", async (req, res) => {
     }
 });
 
-router.post("/", async (req, res) => {
+router.put("/:cid", async (req, res) => {
     try {
-        const cart = await cartsDao.addCart();
-        res.json(cart);
+        const { cid } = req.params;
+        const listProd = req.body;
+
+        const cart = await cartsDao.getCartById(cid);
+
+        const nvoCart = [];
+
+        for (const prod of listProd) {
+            let prodSRC = await productsDao.getProductById(prod.product);
+            console.log(prodSRC);
+
+            if (prod.quantity <= prodSRC.stock) {
+                nvoCart.push(prod);
+            }
+            // No agrega producto
+            // {console.log("Excede STOCK!")}
+
+            // Agrega producto con stock maximo
+            else {
+                console.log(
+                    `Solo se agregan ${prodSRC.stock} que es el stock maximo`
+                );
+                nvoCart.push({
+                    product: prod.product,
+                    quantity: prodSRC.stock,
+                });
+            }
+        }
+
+        cart.products = nvoCart;
+
+        await cartsDao.upDateCart(cid, cart);
+
+        res.json({
+            message: "Carrito Actualizado",
+        });
     } catch (e) {
         console.log(e);
         res.json({
-            message: "Error al crear carrito",
+            message: "Error al actualizar Carrito",
             e,
         });
     }
 });
 
-router.delete("/:id", async (req, res) => {
+router.put("/:cid/product/:pid", async (req, res) => {
     try {
-        const { id } = req.params;
-        const cart = await cartsDao.deleteCart(id);
+        const { cid } = req.params;
+        const { pid } = req.params;
+        const cant = req.body;
+        const cart = await cartsDao.getCartById(cid);
+        const prodSRC = await productsDao.getProductById(pid);
+
+        console.log(cant.quantity);
+
+        const exist = cart.products.find(
+            (prod) => prod.product._id.toString() === pid
+        );
+
+        if (cant.quantity <= prodSRC.stock) {
+            const updateQuantity = {
+                product: exist.product,
+                quantity: cant.quantity,
+            };
+
+            cart.products.splice(
+                cart.products.indexOf(exist),
+                1,
+                updateQuantity
+            );
+
+            await cartsDao.upDateCart(cid, cart);
+            console.log("cantidad modificada");
+
+            res.json({
+                message: "Cantidad modificada",
+            });
+        } else {
+            console.log("la cantidad excese al stock");
+            res.json({
+                message: "La cantidad supera al stock disponible",
+            });
+        }
+    } catch (e) {
+        console.log(e);
         res.json({
-            cart,
+            message: "Error al actualizar cantidad de Producto",
+            e,
+        });
+    }
+});
+
+router.delete("/:cid", async (req, res) => {
+    try {
+        const { cid } = req.params;
+        const cart = await cartsDao.getCartById(cid);
+
+        cart.products = [];
+
+        await cartsDao.upDateCart(cid, cart);
+
+        res.json({
             message: "Carrito eliminado",
         });
+    } catch (e) {
+        console.log(e);
+        res.json({
+            message: "Error al eliminar Carrito",
+            e,
+        });
+    }
+});
+router.delete("/:cid/product/:pid", async (req, res) => {
+    try {
+        const { cid } = req.params;
+        const { pid } = req.params;
+        const cart = await cartsDao.getCartById(cid);
+
+        const exist = cart.products.find(
+            (prod) => prod.product._id.toString() === pid
+        );
+
+        console.log(exist);
+
+        if (!exist) {
+            console.log("no existe producto en carrito");
+            res.json({
+                message: "El producto no existe en el carrito",
+            });
+        } else {
+            console.log("existe en carrito");
+            cart.products.splice(cart.products.indexOf(exist), 1);
+
+            await cartsDao.upDateCart(cid, cart);
+
+            res.json({
+                cart,
+                message: "Producto eliminado",
+            });
+        }
     } catch (e) {
         console.log(e);
         res.json({

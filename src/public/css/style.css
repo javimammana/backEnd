@@ -3,6 +3,8 @@
     padding: 0;
     margin: 0;
     font-family: "Didact Gothic", sans-serif;
+    text-decoration: none;
+    list-style: none;
 }
 .contenedor {
     width: 100%;
@@ -21,6 +23,8 @@
     justify-content: center;
 }
 
+
+/* diseno card */
 .contenedorCard {
     max-width: 1000px;
     display: flex;
@@ -69,4 +73,25 @@
     border: 0px;
     padding: 5px;
     font-size: 15px;
+}
+
+/* diseno paginacion */
+
+.pagContenedor {
+    display: flex;
+    margin-bottom: 30px;
+}
+
+.pagLink {
+    padding: 0 5px;
+    color: #f2b500;
+}
+
+.pagLink :hover {
+    color: #3c3c3c;
+}
+
+.pagNow {
+    padding: 0 5px;
+    color:#3c3c3c;
 }

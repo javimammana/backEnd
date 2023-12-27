@@ -7,7 +7,7 @@ let user;
 
 Swal.fire({
     title: "Bienvenido",
-    text: "Ingrese su nombre para continuar",
+    text: "Ingresa tu nombre para continuar",
     input: "text",
     inputValidator: (value) => {
         return !value && "Necesitás identificarte";
@@ -44,7 +44,15 @@ socketClient.on("messages", (data) => {
     let messages = "";
 
     data.forEach((message) => {
-        messages += `<strong>${message.user}</strong>: ${message.msg} <br />`;
+        if (message.user == user){
+            messages += `<div class="msgUser">
+                            <h5>${message.user}:</h5><p>${message.msg}</p>
+                        </div>`
+        } else { 
+            messages += `<div class="msg">
+                    <h5>${message.user}:</h5><p>${message.msg}</p>
+                    </div>`
+                }
     });
 
     logChat.innerHTML = messages;

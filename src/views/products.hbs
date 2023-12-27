@@ -1,0 +1,51 @@
+<div class="contenedor">
+    {{#if productos.docs}}
+    <div class="sticky">
+        <h1>Productos</h1>
+    </div>
+
+    <div class="contenedorCard">
+        {{#each productos.docs}}
+        <div class="card">
+            <div>
+                <img class="img" src="../img/{{ this.thumbnail }}">
+            </div>
+            <h4>{{ this.title }}</h4>
+            <p>{{ this.description }}</p>
+            <div class="cardInfo">
+                <p>Stock: {{ this.stock }}</p>
+                <h5>${{ this.price }} .-</h5>
+            </div>
+            <button class="btn">Comprar</button>
+        </div>
+        {{/each}}
+    </div>
+
+    {{#if pages}}
+    <div>
+        <ul class="pagContenedor">
+            {{#if productos.hasPrevPage}}
+            <li><a class="pagLink" href="/api/products?page={{productos.prevPage}}&limit={{productos.limit}}&query={{query}}&sort={{sort}}">Prev</a></li>
+            {{/if}}
+
+            {{#each pages}}
+                {{#if pageNow}}
+                <li class="pagNow">{{this.page}}</li>
+                {{else}}
+                <li><a class="pagLink" href="/api/products?page={{page}}&limit={{limit}}&query={{filtro}}&sort={{sort}}">{{this.page}}</a></li>
+                {{/if}}
+            {{/each}}
+
+            {{#if productos.hasNextPage}}
+            <li><a class="pagLink" href="/api/products?page={{productos.nextPage}}&&limit={{productos.limit}}&query={{query}}&sort={{sort}}">Next</a></li>
+            {{/if}}
+        </ul>
+    </div>
+    {{/if}}
+
+        {{else}}
+        <div class="sticky">
+            <h2>No hay productos</h2>
+        </div>
+        {{/if}}
+</div>

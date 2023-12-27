@@ -1,0 +1,127 @@
+@import url("https://fonts.googleapis.com/css2?family=Didact+Gothic&family=Tangerine&display=swap");
+*{
+    padding: 0;
+    margin: 0;
+    font-family: "Didact Gothic", sans-serif;
+    text-decoration: none;
+    list-style: none;
+}
+
+.contenedor {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0px 10px;
+
+}
+
+.sticky {
+    position: sticky;
+    top: 0px;
+    background-color: #fff;
+    padding-bottom: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.contenedorCard {
+    display: flex;
+    flex-direction: column;
+    margin-top: 11px;
+    width: 100%;
+    align-items: center;
+}
+
+.img {
+    width: 70px;
+    height: 70px;
+    background-color: rgb(150, 150, 150);
+    border-radius: 4px;
+}
+
+.prodCard {
+    max-width: 700px;
+    width: 100%;
+    border: solid 1px #000;
+    border-radius: 7px;
+    padding: 10px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.infoCard {
+    margin-left: 10px;
+    width: 100%;
+}
+
+.topCard {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    padding-right: 50px;
+}
+
+.priceCard {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    padding-right: 50px;
+}
+
+.priceCard p {
+    font-size: 20px;
+}
+
+.topCard p {
+    font-size: 12px;
+}
+
+.buttomCard p {
+    font-size: 12px;
+}
+
+.cant {
+    display: flex;
+    align-items: center;
+}
+
+.btnCant {
+    background-color: #626262;
+    border: none;
+    height: 10px;
+    width: 10px;
+    margin: 0 5px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btnCant:hover {
+    background-color: #f2b500;
+    border: none;
+    height: 10px;
+    width: 10px;
+    margin: 0 5px;
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.delete {
+    width: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.btn{
+    background-color: #c60808;
+    border: 0px;
+    padding: 5px;
+    border-radius: 5px;
+    color: aliceblue;
+}

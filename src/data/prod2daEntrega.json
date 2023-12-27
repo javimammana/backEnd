@@ -1,0 +1,311 @@
+[{
+    "title": "Producto 01",
+    "description": "Este es el producto 01",
+    "price": 500,
+    "thumbnail": "sinImagen.png",
+    "code": "PRD001",
+    "stock": 2,
+    "category": "ELECTRONICA",
+    "status": true
+},
+{
+    "title": "Producto 02",
+    "description": "Este es el producto 02",
+    "price": 600,
+    "thumbnail": "sinImagen.png",
+    "code": "PRD002",
+    "stock": 8,
+    "category": "ELECTRONICA",
+    "status": true
+},
+{
+    "title": "Producto 03",
+    "description": "Este es el producto 03",
+    "price": 700,
+    "thumbnail": "sinImagen.png",
+    "code": "PRD003",
+    "stock": 6,
+    "category": "ELECTRONICA",
+    "status": true
+},
+{
+    "title": "Producto 04",
+    "description": "Este es el producto 04",
+    "price": 100,
+    "thumbnail": "sinImagen.png",
+    "code": "PRD004",
+    "stock": 7,
+    "category": "ELECTRONICA",
+    "status": true
+},
+{
+    "title": "Producto 05",
+    "description": "Este es el producto 05",
+    "price": 540,
+    "thumbnail": "sinImagen.png",
+    "code": "PRD005",
+    "stock": 3,
+    "category": "ELECTRONICA",
+    "status": true
+},
+{
+    "title": "Producto 06",
+    "description": "Este es el producto 06",
+    "price": 600,
+    "thumbnail": "sinImagen.png",
+    "code": "PRD006",
+    "stock": 10,
+    "category": "ELECTRONICA",
+    "status": true
+},
+{
+    "title": "Producto 07",
+    "description": "Este es el producto 07",
+    "price": 1000,
+    "thumbnail": "sinImagen.png",
+    "code": "PRD007",
+    "stock": 7,
+    "category": "ELECTRONICA",
+    "status": true
+},
+{
+    "title": "Producto 08",
+    "description": "Este es el producto 08",
+    "price": 900,
+    "thumbnail": "sinImagen.png",
+    "code": "PRD008",
+    "stock": 3,
+    "category": "ELECTRONICA",
+    "status": true
+},
+{
+    "title": "Producto 09",
+    "description": "Este es el producto 09",
+    "price": 6100,
+    "thumbnail": "sinImagen.png",
+    "code": "PRD009",
+    "stock": 12,
+    "category": "ELECTRONICA",
+    "status": true
+},
+{
+    "title": "Producto 10",
+    "description": "Este es el producto 10",
+    "price": 6500,
+    "thumbnail": "sinImagen.png",
+    "code": "PRD010",
+    "stock": 3,
+    "category": "HOGAR",
+    "status": true
+},
+{
+    "title": "Producto 11",
+    "description": "Este es el producto 11",
+    "price": 6500,
+    "thumbnail": "sinImagen.png",
+    "code": "PRD011",
+    "stock": 9,
+    "category": "HOGAR",
+    "status": true
+},
+{
+    "title": "Producto 12",
+    "description": "Este es el producto 12",
+    "price": 3500,
+    "thumbnail": "sinImagen.png",
+    "code": "PRD012",
+    "stock": 4,
+    "category": "HOGAR",
+    "status": true
+},
+{
+    "title": "Producto 13",
+    "description": "Este es el producto 13",
+    "price": 2500,
+    "thumbnail": "sinImagen.png",
+    "code": "PRD013",
+    "stock": 7,
+    "category": "HOGAR",
+    "status": true
+},
+{
+    "title": "Producto 14",
+    "description": "Este es el producto 14",
+    "price": 2300,
+    "thumbnail": "sinImagen.png",
+    "code": "PRD014",
+    "stock": 2,
+    "category": "HOGAR",
+    "status": true
+},
+{
+    "title": "Producto 15",
+    "description": "Este es el producto 15",
+    "price": 2900,
+    "thumbnail": "sinImagen.png",
+    "code": "PRD015",
+    "stock": 4,
+    "category": "HOGAR",
+    "status": true
+},
+{
+    "title": "Producto 16",
+    "description": "Este es el producto 16",
+    "price": 3600,
+    "thumbnail": "sinImagen.png",
+    "code": "PRD016",
+    "stock": 5,
+    "category": "HOGAR",
+    "status": true
+},
+{
+    "title": "Producto 17",
+    "description": "Este es el producto 17",
+    "price": 9600,
+    "thumbnail": "sinImagen.png",
+    "code": "PRD017",
+    "stock": 6,
+    "category": "HOGAR",
+    "status": true
+},
+{
+    "title": "Producto 18",
+    "description": "Este es el producto 18",
+    "price": 1600,
+    "thumbnail": "sinImagen.png",
+    "code": "PRD018",
+    "stock": 10,
+    "category": "JARDIN",
+    "status": true
+},
+{
+    "title": "Producto 19",
+    "description": "Este es el producto 19",
+    "price": 100,
+    "thumbnail": "sinImagen.png",
+    "code": "PRD019",
+    "stock": 3,
+    "category": "JARDIN",
+    "status": true
+},
+{
+    "title": "Producto 20",
+    "description": "Este es el producto 20",
+    "price": 10000,
+    "thumbnail": "sinImagen.png",
+    "code": "PRD020",
+    "stock": 6,
+    "category": "JARDIN",
+    "status": true
+},
+{
+    "title": "Producto 21",
+    "description": "Este es el producto 21",
+    "price": 6100,
+    "thumbnail": "sinImagen.png",
+    "code": "PRD021",
+    "stock": 4,
+    "category": "HOGAR",
+    "status": true
+},
+{
+    "title": "Producto 22",
+    "description": "Este es el producto 22",
+    "price": 10500,
+    "thumbnail": "sinImagen.png",
+    "code": "PRD022",
+    "stock": 5,
+    "category": "HOGAR",
+    "status": true
+},
+{
+    "title": "Producto 23",
+    "description": "Este es el producto 23",
+    "price": 3900,
+    "thumbnail": "sinImagen.png",
+    "code": "PRD023",
+    "stock": 8,
+    "category": "OFICINA",
+    "status": true
+},
+{
+    "title": "Producto 24",
+    "description": "Este es el producto 24",
+    "price": 25100,
+    "thumbnail": "sinImagen.png",
+    "code": "PRD024",
+    "stock": 7,
+    "category": "OFICINA",
+    "status": true
+},
+{
+    "title": "Producto 25",
+    "description": "Este es el producto 25",
+    "price": 2400,
+    "thumbnail": "sinImagen.png",
+    "code": "PRD025",
+    "stock": 9,
+    "category": "OFICINA",
+    "status": true
+},
+{
+    "title": "Producto 26",
+    "description": "Este es el producto 26",
+    "price": 2900,
+    "thumbnail": "sinImagen.png",
+    "code": "PRD026",
+    "stock": 3,
+    "category": "OFICINA",
+    "status": true
+},
+{
+    "title": "Producto 27",
+    "description": "Este es el producto 27",
+    "price": 7600,
+    "thumbnail": "sinImagen.png",
+    "code": "PRD027",
+    "stock": 4,
+    "category": "OFICINA",
+    "status": true
+},
+{
+    "title": "Producto 28",
+    "description": "Este es el producto 28",
+    "price": 3600,
+    "thumbnail": "sinImagen.png",
+    "code": "PRD028",
+    "stock": 6,
+    "category": "OFICINA",
+    "status": true
+},
+{
+    "title": "Producto 29",
+    "description": "Este es el producto 29",
+    "price": 1600,
+    "thumbnail": "sinImagen.png",
+    "code": "PRD029",
+    "stock": 5,
+    "category": "OFICINA",
+    "status": true
+},
+{
+    "title": "Producto 30",
+    "description": "Este es el producto 30",
+    "price": 1250,
+    "thumbnail": "sinImagen.png",
+    "code": "PRD030",
+    "stock": 6,
+    "category": "AUTO",
+    "status": true
+},
+{
+    "title": "Producto 31",
+    "description": "Este es el producto 31",
+    "price": 10000,
+    "thumbnail": "sinImagen.png",
+    "code": "PRD031",
+    "stock": 4,
+    "category": "AUTO",
+    "status": true
+}
+]

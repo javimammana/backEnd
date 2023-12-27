@@ -6,19 +6,30 @@ import productsDao from "../daos/dbManager/products.dao.js";
 
 const router = Router();
 
-
 router.get("/", async (req, res) => {
-    try {
-        const products = await productsDao.getAllProducts();
-        console.log(products);
-        res.json(products);
-    } catch (e) {
-        console.log(e);
-        res.json({
-            message: "Error al leer los productos",
-            e,
-        });
+    const { query, page, limit, sort } = req.query;
+
+    const productos = await productsDao.getProductPaginate(limit, page, query, sort);
+    
+    // console.log(productos);
+
+    const pages = []
+
+    if (productos.totalPages != 1) {
+        for (let i = 1; i <= productos.totalPages; i++) {
+            pages.push({page: i, limit: limit, filtro: query, sort: sort, pageNow: i == productos.page ? true : false });
+        }
     }
+    // console.log(pages)
+    // res.json(productos)
+    res.render("products", {
+        title: "Productos",
+        fileCss: "style.css",
+        productos,
+        pages,
+        sort,
+        query,
+    });
 });
 
 router.get("/:id", async (req, res) => {
@@ -64,10 +75,10 @@ router.put("/:id", async (req, res) => {
 
         await productsDao.updateProduct(id, req.body);
 
-        const product = await productsDao.getProductById(id);
+        // const product = await productsDao.getProductById(id);
 
         res.json({
-            product,
+            // product,
             message: `Producto ${id} modificado`,
         });
     } catch (e) {

@@ -6,7 +6,6 @@ import productsDao from "../daos/dbManager/products.dao.js";
 const router = Router();
 // const manager = new ProductManager("./src/data/productos.json");
 
-
 router.get("/", async (req, res) => {
     const productos = await productsDao.getAllProducts();
     // console.log(productos)
@@ -20,7 +19,7 @@ router.get("/", async (req, res) => {
 router.get("/realTimeProducts", (req, res) => {
     res.render("realTimeProducts", {
         title: "Cargar Productos",
-        fileCss: "style2.css",
+        fileCss: "managerStyle.css",
     });
 });
 
