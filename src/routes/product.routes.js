@@ -20,6 +20,21 @@ router.get("/", async (req, res) => {
             pages.push({page: i, limit: limit, filtro: query, sort: sort, pageNow: i == productos.page ? true : false });
         }
     }
+
+    const productosPage = {
+        // status:,
+        payload: productos.totalDocs,
+        totalPages: productos.totalPages,
+        prevPage: productos.prevPage,
+        nextPage: productos.nextPage,
+        page: productos.page,
+        hasPrevPage: productos.hasPrevPage,
+        hasNextPage: productos.hasNextPage,
+        prevLink: productos.hasPrevPage ? `/api/products?page=${productos.prevPage}&&limit={{productos.limit}}&query={{query}}&sort={{sort}}` : null,
+        nextLink: productos.hasNextPage ? `/api/products?page=${productos.nextPage}&&limit={{productos.limit}}&query={{query}}&sort={{sort}}` : null,
+    };
+
+    console.log(productosPage)
     // console.log(pages)
     // res.json(productos)
     res.render("products", {
