@@ -14,7 +14,7 @@ Swal.fire({
     },
     allowOutsideClick: false,
 }).then((value) => {
-    user = value.value;
+    user = value.value.toUpperCase();
     socketClient.emit("inicio", user);
 });
 
