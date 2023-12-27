@@ -7,11 +7,14 @@ import productsDao from "../daos/dbManager/products.dao.js";
 const router = Router();
 
 router.get("/", async (req, res) => {
+try{
     const { query, page, limit, sort } = req.query;
 
     const productos = await productsDao.getProductPaginate(limit, page, query, sort);
-    
     // console.log(productos);
+    
+
+    console.log(productos)
 
     const pages = []
 
@@ -21,21 +24,21 @@ router.get("/", async (req, res) => {
         }
     }
 
-    const productosPage = {
-        // status:,
-        payload: productos.totalDocs,
-        totalPages: productos.totalPages,
-        prevPage: productos.prevPage,
-        nextPage: productos.nextPage,
-        page: productos.page,
-        hasPrevPage: productos.hasPrevPage,
-        hasNextPage: productos.hasNextPage,
-        prevLink: productos.hasPrevPage ? `/api/products?page=${productos.prevPage}&&limit={{productos.limit}}&query={{query}}&sort={{sort}}` : null,
-        nextLink: productos.hasNextPage ? `/api/products?page=${productos.nextPage}&&limit={{productos.limit}}&query={{query}}&sort={{sort}}` : null,
-    };
-
-    console.log(productosPage)
     // console.log(pages)
+
+    const response = {
+            status:"success",
+            payload: productos.totalDocs,
+            totalPages: productos.totalPages,
+            prevPage: productos.prevPage,
+            nextPage: productos.nextPage,
+            page: productos.page,
+            hasPrevPage: productos.hasPrevPage,
+            hasNextPage: productos.hasNextPage,
+            prevLink: productos.hasPrevPage ? `/api/products?page=${productos.prevPage}&&limit={{productos.limit}}&query={{query}}&sort={{sort}}` : null,
+            nextLink: productos.hasNextPage ? `/api/products?page=${productos.nextPage}&&limit={{productos.limit}}&query={{query}}&sort={{sort}}` : null,
+        }
+
     // res.json(productos)
     res.render("products", {
         title: "Productos",
@@ -45,6 +48,25 @@ router.get("/", async (req, res) => {
         sort,
         query,
     });
+
+
+    // res.json({
+    //     status:"success",
+    //     payload: productos.totalDocs,
+    //     totalPages: productos.totalPages,
+    //     prevPage: productos.prevPage,
+    //     nextPage: productos.nextPage,
+    //     page: productos.page,
+    //     hasPrevPage: productos.hasPrevPage,
+    //     hasNextPage: productos.hasNextPage,
+    //     prevLink: productos.hasPrevPage ? `/api/products?page=${productos.prevPage}&&limit={{productos.limit}}&query={{query}}&sort={{sort}}` : null,
+    //     nextLink: productos.hasNextPage ? `/api/products?page=${productos.nextPage}&&limit={{productos.limit}}&query={{query}}&sort={{sort}}` : null,
+    // })
+
+    }catch (e) {res.json({
+        status:"error",
+        e,
+    })}
 });
 
 router.get("/:id", async (req, res) => {
