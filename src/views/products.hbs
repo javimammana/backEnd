@@ -25,19 +25,19 @@
     <div>
         <ul class="pagContenedor">
             {{#if productos.hasPrevPage}}
-            <li><a class="pagLink" href="/api/products?page={{productos.prevPage}}&limit={{productos.limit}}&query={{query}}&sort={{sort}}">Prev</a></li>
+            <li><a class="pagLink" href="/products?page={{productos.prevPage}}&limit={{productos.limit}}&query={{query}}&sort={{sort}}">Prev</a></li>
             {{/if}}
 
             {{#each pages}}
                 {{#if pageNow}}
                 <li class="pagNow">{{this.page}}</li>
                 {{else}}
-                <li><a class="pagLink" href="/api/products?page={{page}}&limit={{limit}}&query={{filtro}}&sort={{sort}}">{{this.page}}</a></li>
+                <li><a class="pagLink" href="/products?page={{page}}&limit={{limit}}&query={{filtro}}&sort={{sort}}">{{this.page}}</a></li>
                 {{/if}}
             {{/each}}
 
             {{#if productos.hasNextPage}}
-            <li><a class="pagLink" href="/api/products?page={{productos.nextPage}}&&limit={{productos.limit}}&query={{query}}&sort={{sort}}">Next</a></li>
+            <li><a class="pagLink" href="/products?page={{productos.nextPage}}&&limit={{productos.limit}}&query={{query}}&sort={{sort}}">Next</a></li>
             {{/if}}
         </ul>
     </div>

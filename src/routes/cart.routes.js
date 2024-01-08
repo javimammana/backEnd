@@ -26,13 +26,13 @@ router.get("/:id", async (req, res) => {
 
         const cart = await cartsDao.getCartById(id);
         console.log("Buscado ok");
-        // res.json(cart);
+        res.json(cart);
 
-        res.render("cart", {
-            title: "Carrito",
-            fileCss: "cardStyle.css",
-            cart,
-        });
+        // res.render("cart", {
+        //     title: "Carrito",
+        //     fileCss: "cardStyle.css",
+        //     cart,
+        // });
     } catch (e) {
         console.log(e);
         res.json({
@@ -42,18 +42,18 @@ router.get("/:id", async (req, res) => {
     }
 });
 
-// router.post("/", async (req, res) => {
-//     try {
-//         const cart = await cartsDao.addCart();
-//         res.json(cart);
-//     } catch (e) {
-//         console.log(e);
-//         res.json({
-//             message: "Error al crear carrito",
-//             e,
-//         });
-//     }
-// });
+router.post("/", async (req, res) => {
+    try {
+        const cart = await cartsDao.addCart();
+        res.json(cart);
+    } catch (e) {
+        console.log(e);
+        res.json({
+            message: "Error al crear carrito",
+            e,
+        });
+    }
+});
 
 router.post("/:cid/product/:pid", async (req, res) => {
     try {

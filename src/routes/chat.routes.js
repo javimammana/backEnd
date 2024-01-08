@@ -8,9 +8,7 @@ router.get ("/", async (req, res) => {
     try {
         const chats = await chatDao.getAllMessages();
         // console.log(chats);
-        res.render("chat", {
-            title: "CHAT",
-            fileCss: "chatStyle.css",
+        res.json({
             chats,
         });
     } catch (e) {

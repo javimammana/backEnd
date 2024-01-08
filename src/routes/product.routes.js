@@ -40,28 +40,20 @@ try{
         }
 
     // res.json(productos)
-    res.render("products", {
-        title: "Productos",
-        fileCss: "style.css",
-        productos,
-        pages,
-        sort,
-        query,
-    });
 
 
-    // res.json({
-    //     status:"success",
-    //     payload: productos.totalDocs,
-    //     totalPages: productos.totalPages,
-    //     prevPage: productos.prevPage,
-    //     nextPage: productos.nextPage,
-    //     page: productos.page,
-    //     hasPrevPage: productos.hasPrevPage,
-    //     hasNextPage: productos.hasNextPage,
-    //     prevLink: productos.hasPrevPage ? `/api/products?page=${productos.prevPage}&&limit={{productos.limit}}&query={{query}}&sort={{sort}}` : null,
-    //     nextLink: productos.hasNextPage ? `/api/products?page=${productos.nextPage}&&limit={{productos.limit}}&query={{query}}&sort={{sort}}` : null,
-    // })
+    res.json({
+        status:"success",
+        payload: productos.totalDocs,
+        totalPages: productos.totalPages,
+        prevPage: productos.prevPage,
+        nextPage: productos.nextPage,
+        page: productos.page,
+        hasPrevPage: productos.hasPrevPage,
+        hasNextPage: productos.hasNextPage,
+        prevLink: productos.hasPrevPage ? `/api/products?page=${productos.prevPage}&&limit={{productos.limit}}&query={{query}}&sort={{sort}}` : null,
+        nextLink: productos.hasNextPage ? `/api/products?page=${productos.nextPage}&&limit={{productos.limit}}&query={{query}}&sort={{sort}}` : null,
+    })
 
     }catch (e) {res.json({
         status:"error",
